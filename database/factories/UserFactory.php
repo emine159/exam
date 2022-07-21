@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
+use Illuminate\Database\QueryException; 
 
 class UserFactory extends Factory
 {
@@ -24,11 +25,14 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $types = ['admin','user'];
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            // yukarıda erey tanımlandı bu nanımdan rasgele kullanıcı seçilecek 0 ve 1 arassında.
+            'type' => $types[rand(0,1)],
+            'password' => '123456789', // password
             'remember_token' => Str::random(10),
         ];
     }
