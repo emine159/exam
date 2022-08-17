@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->string('title'); 
-            $table->longText('description')->nullable;
-            $table->timestamp('finished_at')->nullable;
-            $table->enum('status',['aktif','taslak','pasif'])->default('taslak');
+            $table->longText('description')->nullable();
+            $table->string('slug');
+            $table->timestamp('finished_at')->nullable();
+            $table->enum('status',['publish','draft','passive'])->default('draft');
             $table->timestamps();
         });
     }

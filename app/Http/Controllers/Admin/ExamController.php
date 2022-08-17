@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Exam;
+use App\Http\Requests\ExamCreateRequest;
+use App\Http\Requests\ExamUpdateRequest;
+
 
 class ExamController extends Controller
 {
@@ -15,7 +18,16 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams = Exam::paginate(10);
+        $exams = Exam::withCount('questions');
+         if(request()->get('title')){
+            $exams = $exams->where('title','LIKE',"%".request()->get('title')."%");
+         }
+
+         if(request()->get('status')){
+            $exams = $exams->where('status',request()->get('status'));
+         }
+
+        $exams = $exams->paginate(10);
         return view('admin.exam.list',compact('exams'));
     }
 
@@ -26,7 +38,7 @@ class ExamController extends Controller
      */
     public function create()
     {
-        return "create fonksiyonu";
+        return view('admin.exam.create');
         
     }
 
@@ -36,9 +48,10 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExamCreateRequest $request)
     {
-        //
+        Exam::create($request->post());
+        return redirect()->route('exams.index')->withSuccess('Sınav Başarıyla Oluşturuldu');
     }
 
     /**
@@ -60,7 +73,8 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $exam = Exam::find($id) ?? abort(404,'Sınav Bulunamadı');
+        return view('admin.exam.edit',compact('exam'));
     }
 
     /**
@@ -70,9 +84,11 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ExamUpdateRequest $request, $id)
     {
-        //
+        $exam = Exam::find($id) ?? abort(404,'Sınav Bulunamadı');
+        Exam::find($id)->update($request->except(['_method','_token']));
+        return redirect()->route('exams.index')->withSuccess('Sınav Güncelleme İşlemi Başarılı');
     }
 
     /**
@@ -83,6 +99,9 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $exam = Exam::find($id) ?? abort(404,'Sınav Bulunamadı');
+        $exam->delete();
+        return redirect()->route('exams.index')->withSuccess('Sınav Silme İşlemi Başarılı');
+
     }
 }

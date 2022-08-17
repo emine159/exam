@@ -25,14 +25,18 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+
+        
         $types = ['admin','user'];
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
+            'phone_number' => rand(5300000000,5559999999),
+            'branch' => $this->faker->text($maxNbChars = 10) ,
             'email_verified_at' => now(),
             // yukarıda erey tanımlandı bu nanımdan rasgele kullanıcı seçilecek 0 ve 1 arassında.
             'type' => $types[rand(0,1)],
-            'password' => '123456789', // password
+            'password' => '$2y$10$su3oYQ1T8/omTDYfx0a99uMgdExVLe8pXWqNYjcxmHXJcnOQr3YMa', // password
             'remember_token' => Str::random(10),
         ];
     }

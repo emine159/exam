@@ -18,12 +18,14 @@ class UserSeeder extends Seeder
             \App\Models\User::insert([
             'name' => 'Emine Bulut',
             'email' => 'emineblt159@gmail.com',
+            'phone_number' => '5431611111',
+            'branch' => 'Müdür',
             'email_verified_at' => now(),
             'type' => 'admin',
-            'password' => '123456789', // password
+            'password' => '$2y$10$su3oYQ1T8/omTDYfx0a99uMgdExVLe8pXWqNYjcxmHXJcnOQr3YMa', // password
             'remember_token' => Str::random(10),
         ]);
 
-         \App\Models\User::factory(5)->create(); //random uye olusturmak 
+         \App\Models\User::factory(20)->create(); //random uye olusturmak 
     }
 }
