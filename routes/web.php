@@ -1,25 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ExamController;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
 Route::group(['middleware' => ['auth','isAdmin'],'prefix' => 'admin'],function(){
-    Route::get('deneme',function(){
-        return "prefis deneme ";
+    Route::resource('exams',ExamController::class);
+
     });
 
-});
+
