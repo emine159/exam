@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], functio
     Route::resource('exams', ExamController::class);
     Route::resource('exam/{exam_id}/questions', QuestionController::class);
     Route::resource('admin_users', UserController::class);
-    Route::get('user_users', [UserController::class,'user_index'])->name('user_users');
+ // Route::get('user_users', [UserController::class,'user_index'])->name('user_users');
 });
 
 

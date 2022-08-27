@@ -19,10 +19,10 @@
                         <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" style="text-decoration: none;">
                             {{ __('Anasayfa') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('admin_users.index') }}" :active="request()->routeIs('#')" style="text-decoration: none;">
+                        <x-jet-nav-link href="{{ route('admin_users.index') }}?usr=admin" :active="request()->routeIs('#')" style="text-decoration: none;">
                             {{ __('Öğretmen Kadrosu') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('admin_users.index') }}" :active="request()->routeIs('#')" style="text-decoration: none;">
+                        <x-jet-nav-link href="{{ route('admin_users.index') }}?usr=user" :active="request()->routeIs('#')" style="text-decoration: none;">
                             {{ __('Öğrenci Listesi') }}
                         </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('exams.index') }}" :active="request()->routeIs('exams.index')"

@@ -7,7 +7,7 @@
                 @foreach ($exam->questions as $question)
                     <strong>{{ $loop->iteration }}. Soru</strong> <br>{{ $question->question }}
                     @if ($question->image)
-                        <img src="/{{ $question->image }}" style="width: 30%" class="img-responsive mt-4">
+                        <img src="/{{ str_replace("public","storage",$question->image) }}" style="width: 30%" class="img-responsive mt-4">
                     @endif
                     <ol type="A" class="mt-4">
                         <li>

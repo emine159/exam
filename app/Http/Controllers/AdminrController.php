@@ -1,25 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class UserController extends Controller
+class AdminrController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $admin_users = User::where(["type"=>$request->usr])->get();
-        return view('admin.list',compact('admin_users'));
+        //
     }
-  
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return 'scscsc';
+        //
     }
 
     /**

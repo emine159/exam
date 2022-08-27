@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\Answer;
 use Illuminate\Support\Facades\DB;
+use \App\Models\Question;
+use \App\Models\Result;
+
 
 class MainController extends Controller
 {
@@ -18,6 +21,7 @@ class MainController extends Controller
     public function exam($slug)
     {
         $exam = Exam::whereSlug($slug)->with('questions')->first();
+
         return view('exam', compact('exam'));
     }
 
@@ -29,21 +33,40 @@ class MainController extends Controller
 
     public function result(Request $request, $slug)
     {
+
+   
         $exam = Exam::whereSlug($slug)->with('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
 
+       $point=0;
+       $correct=0;
+       $wrong=0;
+       $blank=0;
         foreach ($request->question as $key => $val) {
+           
 
-            $q = Answer::where([
-                'user_id' => auth()->user()->id,
-                'question_id' => $key,
-            ])->first();
-            if (!isset($q->id)) {
                 Answer::create([
                     'user_id' => auth()->user()->id,
                     'question_id' => $key,
                     'answer' => $val
                 ]);
-            }
+
+                $question=Question::find($key);
+                if($question->correct_answer==$val){
+                        $correct++;
+                }else{
+                    $wrong++;
+                }
+
         }
+
+        $result=new Result();
+        $result->user_id=auth()->user()->id;
+        $result->exam_id=$exam->id;
+        $result->point=round((100 / count($exam->questions)) * $correct);
+        $result->correct=$correct;
+        $result->wrong=$wrong;
+        $result->blank= count($exam->questions)-($correct + $wrong);
+        $result->save();
+        return redirect()->route('dashboard',$exam->slug)->withSuccess("Sınav Başarıyla Tamamlandı");
     }
 }
