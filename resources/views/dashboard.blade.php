@@ -18,7 +18,12 @@
                             <p class="mb-1">{{ Str::limit($exam->description, 100) }}</p>
                             <small>{{ $exam->questions_count }} Soru</small><br>
                             <small>{{ $exam->finished_at ? $exam->finished_at->diffForHumans() . ' bitiyor' : null }}</small><br>
-                            <a href="{{route('exam.join',$exam->slug)}}" class="btn btn-primary d-block" style="background-color:#55b250;">Sınava Git</a><br>
+
+                            @if($exam->my_result)
+                            <a href="{{route('dashboard',$exam->slug)}}" class="btn btn-primary d-block" style="background-color:red">Sınav'a Katılım Sağlandı</a><br>
+                            @else
+                            <a href="{{route('exam.join',$exam->slug)}}" class="btn btn-primary d-block" style="background-color:#55b250;">Sınav'a Katıl</a><br>
+                            @endif
                         </div><br>    
                         @endif
                     @endforeach
