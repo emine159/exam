@@ -34,7 +34,7 @@
     <div class="card mt-3">
         <div class="card-body">
             
-                <h5 class="card-title">Sınav Sonuşmaları</h5>
+                <h5 class="card-title">Sınav Sonuçları</h5>
                 <ul class="list-group">
                     @foreach($exam->results as $result)
                     <li class="list-group-item d-flex justify-content-between align-items-center">

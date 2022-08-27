@@ -70,4 +70,6 @@ class MainController extends Controller
         $result->save();
         return redirect()->route('dashboard', $exam->slug)->withSuccess("Sınav Başarıyla Tamamlandı");
     }
+
+       
 }

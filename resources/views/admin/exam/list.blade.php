@@ -46,6 +46,8 @@
                     @foreach ($exams as $exam)
                         <tr>
                             <th>
+                                <a href="{{route('exams.details',$exam->id)}}" class="btn btn-sm btn-secondary"><i
+                                    class="fa fa-info-circle" ></i></a>
                                 <a href="{{ route('questions.index', $exam->id) }}" class="btn btn-sm btn-warning"><i
                                         class="fa fa-question" style="color:white;"></i></a>
                                 <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-sm btn-primary"><i

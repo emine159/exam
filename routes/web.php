@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => ['auth', 'isAdmin'], 'prefix' => 'admin'], function () {
     Route::get('exams/{id}', [ExamController::class, 'destroy'])->whereNumber('id')->name('exams.destroy');
+    Route::get('exams/{id}/details', [ExamController::class, 'show'])->whereNumber('id')->name('exams.details');
     Route::get('exam/{exam_id}/questions/{id}', [QuestionController::class, 'destroy'])->whereNumber('id')->name('questions.destroy');
     Route::resource('exams', ExamController::class);
     Route::resource('exam/{exam_id}/questions', QuestionController::class);

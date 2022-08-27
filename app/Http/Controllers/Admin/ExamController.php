@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Http\Requests\ExamCreateRequest;
 use App\Http\Requests\ExamUpdateRequest;
+use App\Models\Question;
 
 
 class ExamController extends Controller
@@ -62,7 +63,8 @@ class ExamController extends Controller
      */
     public function show($id)
     {
-        //
+        $exam = Exam::with('results.user')->withCount('questions')->find($id) ?? abort(404, 'Sınav Bulunamadı');
+        return view('admin.exam.show',compact('exam'));
     }
 
     /**
