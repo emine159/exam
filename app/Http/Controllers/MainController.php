@@ -27,7 +27,7 @@ class MainController extends Controller
 
     public function exam_detail($slug)
     {
-        $exam = Exam::whereSlug($slug)->with('my_result', 'results')->withCount('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
+        $exam = Exam::whereSlug($slug)->with('my_result', 'results.user')->withCount('questions')->first() ?? abort(404, 'Sınav Bulunamadı');
         return view('exam_detail', compact('exam'));
     }
 

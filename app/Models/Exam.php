@@ -32,7 +32,7 @@ class Exam extends Model
     }
 
     public function results(){
-        return $this->hasMany('App\Models\Result');
+        return $this->hasMany('App\Models\Result')->orderByDesc('point');
     }
 
 

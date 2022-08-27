@@ -10,4 +10,8 @@ class Result extends Model
     use HasFactory;
 
     protected $filleble =['user_id','exam_id','point','correct','wrong','blank'];
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }
